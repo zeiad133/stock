@@ -7,13 +7,17 @@ def buy_orders(stock):
   if not orders_to_buy: return
   stock_id = stock.get('stock_id')
   for order in orders_to_buy:
+      print(stock_id)
+      print(order.get('stock_id'))
       if stock_id != order.get('stock_id'): continue
 
       user = User.objects.filter(id=order.get('user_id')).first()
       user_stock = user.stocks().filter(stock_id=stock_id).first()
+      # print('aaaaaaaaaaaaaaaaaaaaaa')
+      print(valid_to_buy(user, order, stock))
       if valid_to_buy(user, order, stock):
         if not user_stock: 
-          user_Stock  = create_user_stock(user.id, stock_id, stock.get('name'), total= order.get('total'))
+          user_stock  = create_user_stock(user.id, stock_id, stock.get('name'), total= order.get('total'))
 
         user.wallet -= stock.get('price') * order.get('total')
         user_stock.total += order.get('total')
@@ -48,7 +52,7 @@ def valid_to_sell(user,user_stock,order,stock_current_price):
     return enough_shares & valid_price_range
 
 def create_user_stock(user_id, stock_id, stock_name, total):
-  user_stock = UserStocks( user_id= user.id, stock_id=stock_id, stock_name=stock_name, total= total )
+  user_stock = UserStocks( user_id= user_id, stock_id=stock_id, stock_name=stock_name, total= total )
   user_stock.save()
   return user_stock
 

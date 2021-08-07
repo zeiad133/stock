@@ -29,8 +29,9 @@ def withdraw(request):
   user = User.objects.filter(id=user_id).first()
   if not user: return JsonResponse('User not found', safe = False, status= 404)
 
-  if not json_data['amount']: return JsonResponse('Please enter a valid data', safe = False, status= 404)
-  user.wallet-= json_data['amount']
+  if not json_data.get('amount'): return JsonResponse('Please enter a valid data', safe = False, status= 404)
+  user.wallet-= json_data.get('amount')
+  if user.wallet < 0: return JsonResponse('wallet cannot be less than zero', safe = False, status= 404)
   user.save()
   return JsonResponse(UserSerializer(user), safe=False)
 
