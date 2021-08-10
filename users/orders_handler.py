@@ -7,17 +7,13 @@ def buy_orders(stock):
   if not orders_to_buy: return
   stock_id = stock.get('stock_id')
   for order in orders_to_buy:
-      print(stock_id)
-      print(order.get('stock_id'))
       if stock_id != order.get('stock_id'): continue
 
       user = User.objects.filter(id=order.get('user_id')).first()
       user_stock = user.stocks().filter(stock_id=stock_id).first()
-      # print('aaaaaaaaaaaaaaaaaaaaaa')
-      print(valid_to_buy(user, order, stock))
       if valid_to_buy(user, order, stock):
         if not user_stock: 
-          user_stock  = create_user_stock(user.id, stock_id, stock.get('name'), total= order.get('total'))
+          user_stock  = create_user_stock(user.id, stock_id, stock.get('name'), 0)
 
         user.wallet -= stock.get('price') * order.get('total')
         user_stock.total += order.get('total')
