@@ -4,8 +4,6 @@ from app.models.user import User
 from app.models.user_stock import UserStock
 from app.models.order import Order
 from app.serializers.order_form import OrderFormSerializer
-from django.core.cache import cache
-from app.models.order import OrderType
 
 @api_view(['POST'])
 def buy(request, id, stock_id):

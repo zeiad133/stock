@@ -21,7 +21,7 @@ def connect():
   client = mqtt.Client() 
   client.on_message=on_message
   try:
-    client.connect(env.str('HOST'), env.int('PORT'), 100)
+    client.connect(env.str('VERNEMEQ_HOST'), env.int('VERNEMEQ_PORT'), 100)
     client.loop_start() 
     client.subscribe("thndr-trading")
   except:

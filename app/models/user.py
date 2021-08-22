@@ -11,7 +11,7 @@ class User(models.Model):
     stocks = models.ManyToManyField(UserStock, related_name='+')
     def save(self, *args, **kwargs):
       if self.money_on_hold > self.wallet:
-        raise ValidationError({'on_hold_money': "Money on hold should be less than wallet"})
+        raise ValidationError({'money_on_hold': "Money on hold should be less than wallet"})
       self.full_clean()
       return super().save(*args, **kwargs)
 

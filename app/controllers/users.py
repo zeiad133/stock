@@ -1,11 +1,9 @@
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from app.models.user import User
 from app.serializers.user import UserSerializer
 from app.validators.user import isPositiveNumber
-from django.core.exceptions import ValidationError
 
 
 @api_view(['GET'])
@@ -26,9 +24,9 @@ def deposit(request, id):
   amount = request.data.get('amount')
   if not isPositiveNumber(amount): return Response("Please enter a valid Positive Number", status = 422)
 
-  serializer = UserSerializer(user, many=False)
   user.wallet+= int(amount)
   user.save()
+  serializer = UserSerializer(user, many=False)
   return Response(serializer.data)
 
 
@@ -38,9 +36,8 @@ def withdraw(request, id):
   amount = request.data.get('amount')
   if not isPositiveNumber(amount): return Response("Please enter a valid Positive Number", status = 422)
 
-  serializer = UserSerializer(user, many=False)
   user.wallet-= int(amount)
-  user.full_clean()
   user.save()
+  serializer = UserSerializer(user, many=False)
   return Response(serializer.data)
 
