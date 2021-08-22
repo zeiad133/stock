@@ -36,6 +36,7 @@ def update_stock_prices(stock):
       'highest_price_today': price_today(price, parsed_time, cached_stock).get('highest_price_today'),
       'lowest_price_this_hour': price_this_hour(price, parsed_time,cached_stock).get('lowest_price_this_hour'),
       'highest_price_this_hour': price_this_hour(price, parsed_time,cached_stock).get('highest_price_this_hour'),
+      'current_price': price,
       'current_day': parsed_time.day,
       'current_hour': parsed_time.hour
       })

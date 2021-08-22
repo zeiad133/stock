@@ -34,19 +34,13 @@ def deposit(request, id):
 
 @api_view(['POST'])
 def withdraw(request, id):
-  try:
-    user = User.objects.get(id=id)
-    amount = request.data.get('amount')
-    if not isPositiveNumber(amount): return Response("Please enter a valid Positive Number", status = 422)
+  user = User.objects.get(id=id)
+  amount = request.data.get('amount')
+  if not isPositiveNumber(amount): return Response("Please enter a valid Positive Number", status = 422)
 
-    serializer = UserSerializer(user, many=False)
-    user.wallet-= int(amount)
-    user.full_clean()
-  except User.DoesNotExist:
-    return Response("User does not exist", status = 404)
-  except ValidationError as e:
-      return Response(e, status = 422)
-  else:
-    user.save()
-    return Response(serializer.data)
+  serializer = UserSerializer(user, many=False)
+  user.wallet-= int(amount)
+  user.full_clean()
+  user.save()
+  return Response(serializer.data)
 

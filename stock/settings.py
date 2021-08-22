@@ -29,15 +29,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    # ]
-}
 
 INSTALLED_APPS = [
     'rest_framework',
-    'users.apps.UsersConfig',
+    # 'users.apps.UsersConfig',
     'app.apps.AppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -117,6 +112,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'app.utils.exception_handler.custom_exception_handler'
+}
 
 
 # Internationalization

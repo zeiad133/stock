@@ -1,10 +1,13 @@
 import paho.mqtt.client as mqtt
 import time
 import json
-from users.orders_handler import buy_orders, sell_orders
-from users.stock_handler import update_stock_prices
+# from users.stock_handler import update_stock_prices
+from app.helpers.orders.buy import buy_orders
+from app.helpers.orders.sell import sell_orders
+from app.helpers.stocks.update import update_stock_prices
 
-time.sleep(10)
+
+# time.sleep(10)
 
 def on_message(client, userdata, message):
     body = str(message.payload.decode("utf-8"))
